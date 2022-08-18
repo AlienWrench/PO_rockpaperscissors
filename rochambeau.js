@@ -1,8 +1,6 @@
-
-
 //function returning the computer's random choice of rock, paper, or scissors in the game
 function getComputerChoice() {
-    const possibleChoices = ["Rock", "Paper", "Scissors"];
+    const possibleChoices = ["rock", "paper", "scissors"];
     const numberOfChoices = 3;    //no magic numbers?
 
     let arraySelector = Math.floor(Math.random() * numberOfChoices);
@@ -15,11 +13,20 @@ function getComputerChoice() {
 function getPlayerChoice() {
     let playerChoice = prompt("Please choose a hand to play (Rock, Paper, Scissors): ");
 
+    if (playerChoice === null || playerChoice === "") {
+        console.log("Please enter an answer.");
+        playerChoice = getPlayerChoice();
+    }
+    
+    playerChoice = makeChoiceInsensitive(playerChoice);
     return playerChoice;
 };
 
 //function for case insensitivity? could call from getPlayerChoice?
 function makeChoiceInsensitive(playerChoice) {
+    
+
+    
     const insensitiveChoice = playerChoice.toLowerCase();
 
     return insensitiveChoice;
@@ -34,12 +41,47 @@ function isChoiceValid(playerChoice) {
     playerChoice = makeChoiceInsensitive(playerChoice);
 
     if (playerChoice === validChoice1 || playerChoice === validChoice2 || playerChoice === validChoice3) {
-        return playerChoice;
+        return true;
     } else {
         console.log("Sorry. That is not a valid choice. Please try again.");
-        getPlayerChoice();
+        return false;
     }
 }
 
-let globalPlayerChoice = isChoiceValid(getPlayerChoice());  //or I guess call it like this
+//not really sure how to do this right now without a ton of if statements, but it feels like there ought to be a more elegant way
+//come back to this
+function playRound(playerSelection, computerSelection) {
+    let outcomeMessage;
+
+    //if(isChoiceValid(playerSelection)) {
+        if (playerSelection === computerSelection) {
+            console.log(`The computer played ${computerSelection}.`)
+            outcomeMessage = "That's a tie! Play again.";
+        } else if (playerSelection === "rock" && computerSelection === "scissors") {
+            console.log(`The computer played ${computerSelection}.`)
+            outcomeMessage = "You win! Nice job.";
+        } else if (playerSelection === "paper" && computerSelection === "rock") {
+            console.log(`The computer played ${computerSelection}.`)
+            outcomeMessage = "You win! Nice job.";
+        } else if (playerSelection === "scissors" && computerSelection === "paper") {
+            console.log(`The computer played ${computerSelection}.`)
+            outcomeMessage = "You win! Nice job.";
+        } else {
+            console.log(`The computer played ${computerSelection}.`)
+            outcomeMessage = "Sorry! You lose this round.";
+        }
+    //} else {
+     //   getPlayerChoice();
+   // }
+    return outcomeMessage;
+}
+
+let globalPlayerChoice = getPlayerChoice();  //or I guess call it like this
 //function for actually playing the game
+
+//test
+while (!isChoiceValid(globalPlayerChoice)) {
+    globalPlayerChoice = getPlayerChoice();
+}
+
+console.log(playRound(globalPlayerChoice, getComputerChoice()));
