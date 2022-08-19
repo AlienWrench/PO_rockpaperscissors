@@ -14,9 +14,6 @@ function getPlayerChoice() {
     let playerChoice = prompt("Please choose a hand to play (Rock, Paper, Scissors): ");
 
 
-    
-    //playerChoice = makeChoiceInsensitive(playerChoice);
-
     while (!isChoiceValid(playerChoice)) {
         playerChoice = getPlayerChoice();
     }
@@ -41,7 +38,7 @@ function isChoiceValid(playerChoice) {
 
     if (playerChoice === null || playerChoice === "") {
         console.log("Please enter an answer.");
-        playerChoice = getPlayerChoice();
+        return false;
     }
 
     playerChoice = makeChoiceInsensitive(playerChoice);
@@ -76,9 +73,6 @@ function playRound(playerSelection, computerSelection) {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "Sorry! You lose this round.";
         }
-    //} else {
-     //   getPlayerChoice();
-   // }
     return outcomeMessage;
 }
 
@@ -86,14 +80,10 @@ function game() {
     let playerWins = 0;
     let computerWins = 0;
     let gameTies = 0;
-    //let perRoundPlayerChoice = getPlayerChoice();
     let outcomeMessageStorage;
 
     for (let i = 0; i < 5; i++) {
         
-       // while (!isChoiceValid(perRoundPlayerChoice)) {
-        //    perRoundPlayerChoice = getPlayerChoice();
-       // }
         outcomeMessageStorage = playRound(getPlayerChoice(), getComputerChoice());
 
         if (outcomeMessageStorage === "You win! Nice job.") {
@@ -108,15 +98,14 @@ function game() {
         }
         
     } console.log(`${playerWins} wins, ${computerWins} losses, ${gameTies} ties.`)
+
+    if (playerWins > computerWins) {
+        console.log("Congrats! You won the game!");
+    } else if (computerWins > playerWins) {
+        console.log("Sorry, you lost the game. Computer wins!")
+    } else {
+        console.log("Lame, a tie? Try playing another game.")
+    }
 }
 
 game();
-//let globalPlayerChoice = getPlayerChoice();  //or I guess call it like this
-//function for actually playing the game
-
-//test
-//while (!isChoiceValid(globalPlayerChoice)) {
- //   globalPlayerChoice = getPlayerChoice();
-//}
-
-//console.log(playRound(globalPlayerChoice, getComputerChoice()));
