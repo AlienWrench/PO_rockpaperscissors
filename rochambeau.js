@@ -13,12 +13,13 @@ function getComputerChoice() {
 function getPlayerChoice() {
     let playerChoice = prompt("Please choose a hand to play (Rock, Paper, Scissors): ");
 
-    if (playerChoice === null || playerChoice === "") {
-        console.log("Please enter an answer.");
+
+    
+    //playerChoice = makeChoiceInsensitive(playerChoice);
+
+    while (!isChoiceValid(playerChoice)) {
         playerChoice = getPlayerChoice();
     }
-    
-    playerChoice = makeChoiceInsensitive(playerChoice);
     return playerChoice;
 };
 
@@ -37,6 +38,11 @@ function isChoiceValid(playerChoice) {
     const validChoice1 = "rock";
     const validChoice2 = "paper";
     const validChoice3 = "scissors";
+
+    if (playerChoice === null || playerChoice === "") {
+        console.log("Please enter an answer.");
+        playerChoice = getPlayerChoice();
+    }
 
     playerChoice = makeChoiceInsensitive(playerChoice);
 
@@ -76,12 +82,41 @@ function playRound(playerSelection, computerSelection) {
     return outcomeMessage;
 }
 
-let globalPlayerChoice = getPlayerChoice();  //or I guess call it like this
+function game() {
+    let playerWins = 0;
+    let computerWins = 0;
+    let gameTies = 0;
+    //let perRoundPlayerChoice = getPlayerChoice();
+    let outcomeMessageStorage;
+
+    for (let i = 0; i < 5; i++) {
+        
+       // while (!isChoiceValid(perRoundPlayerChoice)) {
+        //    perRoundPlayerChoice = getPlayerChoice();
+       // }
+        outcomeMessageStorage = playRound(getPlayerChoice(), getComputerChoice());
+
+        if (outcomeMessageStorage === "You win! Nice job.") {
+            console.log(outcomeMessageStorage);
+            playerWins++;
+        } else if (outcomeMessageStorage === "Sorry! You lose this round.") {
+            console.log(outcomeMessageStorage);
+            computerWins++;
+        } else if (outcomeMessageStorage === "That's a tie! Play again.") {
+            console.log(outcomeMessageStorage);
+            gameTies++;
+        }
+        
+    } console.log(`${playerWins} wins, ${computerWins} losses, ${gameTies} ties.`)
+}
+
+game();
+//let globalPlayerChoice = getPlayerChoice();  //or I guess call it like this
 //function for actually playing the game
 
 //test
-while (!isChoiceValid(globalPlayerChoice)) {
-    globalPlayerChoice = getPlayerChoice();
-}
+//while (!isChoiceValid(globalPlayerChoice)) {
+ //   globalPlayerChoice = getPlayerChoice();
+//}
 
-console.log(playRound(globalPlayerChoice, getComputerChoice()));
+//console.log(playRound(globalPlayerChoice, getComputerChoice()));
