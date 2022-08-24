@@ -36,7 +36,7 @@ function isChoiceValid(playerChoice) {
     const validChoice2 = "paper";
     const validChoice3 = "scissors";
 
-    if (playerChoice === null || playerChoice === "") {
+    if ( playerChoice === "") {
         console.log("Please enter an answer.");
         return false;
     }
