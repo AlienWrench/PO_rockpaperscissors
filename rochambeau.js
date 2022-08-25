@@ -36,7 +36,8 @@ function isChoiceValid(playerChoice) {
     const validChoice2 = "paper";
     const validChoice3 = "scissors";
 
-    if (playerChoice === null || playerChoice === "") {
+
+    if ( playerChoice === "") {
         console.log("Please enter an answer.");
         return false;
     }
@@ -55,28 +56,36 @@ function isChoiceValid(playerChoice) {
 //come back to this
 function playRound(playerSelection, computerSelection) {
     let outcomeMessage;
+    playerSelection = makeChoiceInsensitive(playerSelection);
 
-    //if(isChoiceValid(playerSelection)) {
+    if(isChoiceValid(playerSelection)) {
         if (playerSelection === computerSelection) {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "That's a tie! Play again.";
+            results.textContent = outcomeMessage;
         } else if (playerSelection === "rock" && computerSelection === "scissors") {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "You win! Nice job.";
+            results.textContent = outcomeMessage;
         } else if (playerSelection === "paper" && computerSelection === "rock") {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "You win! Nice job.";
+            results.textContent = outcomeMessage;
         } else if (playerSelection === "scissors" && computerSelection === "paper") {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "You win! Nice job.";
+            results.textContent = outcomeMessage;
         } else {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "Sorry! You lose this round.";
+            results.textContent = outcomeMessage;
         }
+
+    }
     return outcomeMessage;
 }
 
-function game() {
+/*function game() {
     let playerWins = 0;
     let computerWins = 0;
     let gameTies = 0;
@@ -106,6 +115,40 @@ function game() {
     } else {
         console.log("Lame, a tie? Try playing another game.")
     }
-}
+} */
 
-game();
+const rockButton = document.createElement('button');
+rockButton.textContent = 'Rock';
+rockButton.style.padding = '10px';
+
+const paperButton = document.createElement('button');
+paperButton.textContent = 'Paper';
+paperButton.style.padding = '10px';
+
+const scissorsButton = document.createElement('button');
+scissorsButton.textContent = 'Scissors';
+scissorsButton.style.padding = '10px';
+
+const resultsContainer = document.createElement('div');
+let results = document.createElement('h1');
+results.textContent = 'heyyy';
+
+document.body.appendChild(rockButton);
+document.body.appendChild(paperButton);
+document.body.appendChild(scissorsButton);
+
+resultsContainer.appendChild(results);
+
+document.body.appendChild(resultsContainer);
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach(button => {
+    button.addEventListener('click', (e) => {
+         playRound(button.textContent, getComputerChoice());
+    });
+}); 
+
+
+
+//game();
