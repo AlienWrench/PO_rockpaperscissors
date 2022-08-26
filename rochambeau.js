@@ -10,7 +10,7 @@ function getComputerChoice() {
     return computerChoice;
 };
 
-function getPlayerChoice() {
+/*function getPlayerChoice() {
     let playerChoice = prompt("Please choose a hand to play (Rock, Paper, Scissors): ");
 
 
@@ -18,7 +18,7 @@ function getPlayerChoice() {
         playerChoice = getPlayerChoice();
     }
     return playerChoice;
-};
+};*/
 
 //function for case insensitivity? could call from getPlayerChoice?
 function makeChoiceInsensitive(playerChoice) {
@@ -36,10 +36,15 @@ function isChoiceValid(playerChoice) {
     const validChoice2 = "paper";
     const validChoice3 = "scissors";
 
+<<<<<<< HEAD
     if ( playerChoice === "") {
+=======
+
+    /*if ( playerChoice === "") {
+>>>>>>> rps-ui
         console.log("Please enter an answer.");
         return false;
-    }
+    }*/
 
     playerChoice = makeChoiceInsensitive(playerChoice);
 
@@ -55,28 +60,46 @@ function isChoiceValid(playerChoice) {
 //come back to this
 function playRound(playerSelection, computerSelection) {
     let outcomeMessage;
+    playerSelection = makeChoiceInsensitive(playerSelection);
 
-    //if(isChoiceValid(playerSelection)) {
+    if(isChoiceValid(playerSelection)) {
         if (playerSelection === computerSelection) {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "That's a tie! Play again.";
+            results.textContent = outcomeMessage;
+            computerDisplay.textContent = `The computer played ${computerSelection}`;
         } else if (playerSelection === "rock" && computerSelection === "scissors") {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "You win! Nice job.";
+            results.textContent = outcomeMessage;
+            computerDisplay.textContent = `The computer played ${computerSelection}`;
+            playerWins++;
         } else if (playerSelection === "paper" && computerSelection === "rock") {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "You win! Nice job.";
+            results.textContent = outcomeMessage;
+            computerDisplay.textContent = `The computer played ${computerSelection}`;
+            playerWins++;
         } else if (playerSelection === "scissors" && computerSelection === "paper") {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "You win! Nice job.";
+            results.textContent = outcomeMessage;
+            computerDisplay.textContent = `The computer played ${computerSelection}`;
+            playerWins++;
+            
         } else {
             console.log(`The computer played ${computerSelection}.`)
             outcomeMessage = "Sorry! You lose this round.";
+            results.textContent = outcomeMessage;
+            computerDisplay.textContent = `The computer played ${computerSelection}`;
+            computerWins++;
         }
-    return outcomeMessage;
+
+    }
+    //return outcomeMessage;
 }
 
-function game() {
+/*function game() {
     let playerWins = 0;
     let computerWins = 0;
     let gameTies = 0;
@@ -106,6 +129,77 @@ function game() {
     } else {
         console.log("Lame, a tie? Try playing another game.")
     }
-}
+} */
+const rockButton = document.createElement('button');
+rockButton.textContent = 'Rock';
+rockButton.style.padding = '10px';
+rockButton.style.margin = "10px";
+rockButton.style.fontSize = '24px';
 
-game();
+const paperButton = document.createElement('button');
+paperButton.textContent = 'Paper';
+paperButton.style.padding = '10px';
+rockButton.style.margin = '10px';
+paperButton.style.fontSize = '24px';
+
+const scissorsButton = document.createElement('button');
+scissorsButton.textContent = 'Scissors';
+scissorsButton.style.padding = '10px';
+scissorsButton.style.margin = '10px';
+scissorsButton.style.fontSize = '24px';
+
+const computerDisplay = document.createElement('div');
+computerDisplay.style.fontSize = '24px';
+
+
+const resultsContainer = document.createElement('div');
+resultsContainer.style.width = '800px';
+resultsContainer.style.textAlign = 'center';
+
+let results = document.createElement('h1');
+results.textContent = "Let's play Rock Paper Scissors! \nClick one of the buttons above to choose a hand to play.";
+
+const scoreDisplay = document.createElement('div');
+let playerWins = 0;
+let computerWins = 0;
+scoreDisplay.textContent = `Player's Wins: ${playerWins} | Computer's wins: ${computerWins}`;
+scoreDisplay.style.fontSize = '30px';
+
+
+
+buttonsContainer.appendChild(rockButton);
+buttonsContainer.appendChild(paperButton);
+buttonsContainer.appendChild(scissorsButton);
+
+resultsContainer.appendChild(results);
+
+document.body.appendChild(computerDisplay);
+document.body.appendChild(resultsContainer);
+document.body.appendChild(scoreDisplay);
+
+const buttons = document.querySelectorAll('button');
+ 
+
+buttons.forEach(button => {
+    button.addEventListener('click', (e) => {
+         playRound(button.textContent, getComputerChoice());
+         scoreDisplay.textContent = `Player's Wins: ${playerWins} | Computer's wins: ${computerWins}`;
+
+         if (playerWins === gameTerminationPoint || computerWins === gameTerminationPoint ) {
+            if (playerWins === gameTerminationPoint) {
+                results.textContent = "Congratulations! \nYou won the game. The scoreboard will now be reset. \nFeel free to play again.";
+            } else {
+                results.textContent = "Sorry, the computer has defeated you in hand-to-hand combat. \nThe scoreboard will now be reset. \nFeel free to play again.";
+            }
+        
+            playerWins = 0;
+            computerWins = 0;
+        }
+    });
+}); 
+
+const gameTerminationPoint = 5;
+
+
+
+//game();
