@@ -10,7 +10,7 @@ function getComputerChoice() {
     return computerChoice;
 };
 
-function getPlayerChoice() {
+/*function getPlayerChoice() {
     let playerChoice = prompt("Please choose a hand to play (Rock, Paper, Scissors): ");
 
 
@@ -18,7 +18,7 @@ function getPlayerChoice() {
         playerChoice = getPlayerChoice();
     }
     return playerChoice;
-};
+};*/
 
 //function for case insensitivity? could call from getPlayerChoice?
 function makeChoiceInsensitive(playerChoice) {
@@ -37,10 +37,10 @@ function isChoiceValid(playerChoice) {
     const validChoice3 = "scissors";
 
 
-    if ( playerChoice === "") {
+    /*if ( playerChoice === "") {
         console.log("Please enter an answer.");
         return false;
-    }
+    }*/
 
     playerChoice = makeChoiceInsensitive(playerChoice);
 
@@ -149,6 +149,9 @@ computerDisplay.style.fontSize = '24px';
 
 
 const resultsContainer = document.createElement('div');
+resultsContainer.style.width = '800px';
+resultsContainer.style.textAlign = 'center';
+
 let results = document.createElement('h1');
 results.textContent = "Let's play Rock Paper Scissors! \nClick one of the buttons above to choose a hand to play.";
 
