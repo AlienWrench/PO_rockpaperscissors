@@ -36,12 +36,8 @@ function isChoiceValid(playerChoice) {
     const validChoice2 = "paper";
     const validChoice3 = "scissors";
 
-<<<<<<< HEAD
-    if ( playerChoice === "") {
-=======
 
     /*if ( playerChoice === "") {
->>>>>>> rps-ui
         console.log("Please enter an answer.");
         return false;
     }*/
